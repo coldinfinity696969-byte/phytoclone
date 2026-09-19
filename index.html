@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PhytoClone — лаборатория микроклонального размножения растений</title>
+<meta name="description" content="Выращиваем комнатные и коллекционные растения в стерильной культуре: орхидеи, ароидные, хищные, папоротники. Без вирусов, вредителей и пересорта. Доставка по России.">
+<meta property="og:title" content="PhytoClone — растения из чистой пробирки">
+<meta property="og:description" content="Микроклональное размножение: чистый посадочный материал без вирусов и пересорта. Адаптируем растение перед отправкой.">
+<meta property="og:image" content="img/hero.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Golos+Text:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F2F0E8;
+  --paper-2:#FAF9F4;
+  --ink:#14211A;
+  --ink-2:#4E5C53;
+  --forest:#13291D;
+  --forest-2:#1E3D2A;
+  --moss:#2F6B41;
+  --moss-dark:#245334;
+  --pad:clamp(20px,5vw,72px);
+  --maxw:1320px;
+  --r:4px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+html:focus-within{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font:400 1.0625rem/1.62 "Golos Text","Segoe UI",system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit;text-decoration:none}
+button,input,textarea,select{font:inherit;color:inherit}
+h1,h2,h3{font-family:Manrope,"Segoe UI",system-ui,sans-serif;font-weight:700;margin:0;letter-spacing:-.03em}
+p{margin:0}
+::selection{background:#C8DCCB;color:var(--ink)}
+:focus-visible{outline:2px solid var(--moss);outline-offset:3px}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding-inline:var(--pad)}
+.sec{padding-block:clamp(56px,6.6vw,98px)}
+section[id]{scroll-margin-top:84px}
+.icon{width:20px;height:20px;flex:none}
+
+.lab{display:flex;align-items:baseline;gap:14px;margin-bottom:clamp(24px,3vw,40px)}
+.lab i{font-style:normal;font-variant-numeric:tabular-nums;font-size:.8125rem;font-weight:600;color:var(--moss)}
+.lab span{font-size:.75rem;font-weight:600;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-2)}
+.dark .lab span{color:#9FB8A6}
+.dark .lab i{color:#7FC08F}
+
+.h2{font-size:clamp(1.95rem,3.8vw,3.25rem);line-height:1.04;max-width:20ch;text-wrap:balance;font-weight:800}
+.lede{max-width:56ch;margin-top:20px;color:var(--ink-2);font-size:clamp(1.02rem,1.25vw,1.18rem);line-height:1.6}
+.dark .lede{color:#A9BFB0}
+
+/* header */
+.hdr{position:fixed;inset:0 0 auto;z-index:60;transition:background .3s,box-shadow .3s}
+.hdr.is-stuck{background:rgba(242,240,232,.94);backdrop-filter:blur(10px);box-shadow:0 1px 0 rgba(20,33,26,.1),0 14px 30px -26px rgba(19,41,29,.9)}
+.hdr__in{display:flex;align-items:center;gap:32px;height:76px;max-width:var(--maxw);margin:0 auto;padding-inline:var(--pad)}
+.brand{display:flex;align-items:center;gap:11px;font-family:Manrope,"Segoe UI",system-ui,sans-serif;font-weight:800;font-size:1.2rem;letter-spacing:-.03em}
+.brand svg{width:27px;height:27px;flex:none;color:var(--moss)}
+.nav{display:flex;gap:22px;margin-left:auto;font-size:.95rem}
+.nav a{color:var(--ink-2);padding-block:6px;position:relative}
+.nav a::after{content:"";position:absolute;left:0;right:100%;bottom:2px;height:1px;background:var(--moss);transition:right .28s}
+.nav a:hover{color:var(--ink)}
+.nav a:hover::after{right:0}
+
+.btn{display:inline-flex;align-items:center;gap:10px;background:var(--moss);color:#fff;border:0;border-radius:var(--r);
+  padding:15px 26px;font-weight:500;font-size:1rem;cursor:pointer;transition:background .22s,transform .22s,box-shadow .22s}
+.btn:hover{background:var(--moss-dark);transform:translateY(-1px);box-shadow:0 10px 18px -12px rgba(19,41,29,.85),0 24px 44px -30px rgba(47,107,65,.9)}
+.btn svg{width:15px;height:15px}
+.btn--sm{padding:11px 20px;font-size:.94rem}
+.btn--ghost{background:transparent;color:var(--ink);padding-inline:0}
+.btn--ghost:hover{background:transparent;transform:none;box-shadow:none;color:var(--moss)}
+.btn--light{background:#fff;color:var(--forest)}
+.btn--light:hover{background:#E9F1EA;color:var(--forest)}
+
+.burger{display:none;margin-left:auto;background:none;border:0;padding:10px;cursor:pointer}
+.burger span{display:block;width:24px;height:1.5px;background:var(--ink);margin:5px 0;transition:transform .3s,opacity .2s}
+.burger.is-on span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.burger.is-on span:nth-child(2){opacity:0}
+.burger.is-on span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+.menu{position:fixed;inset:0;z-index:55;background:var(--paper);padding:100px var(--pad) 40px;display:none;flex-direction:column}
+.menu.is-open{display:flex}
+.menu a{font-family:Manrope,"Segoe UI",system-ui,sans-serif;font-weight:700;letter-spacing:-.03em;font-size:1.6rem;padding-block:14px;box-shadow:inset 0 -1px 0 rgba(20,33,26,.1)}
+.menu .btn{margin-top:28px;justify-content:center}
+body.locked{overflow:hidden}
+
+/* hero */
+.hero{position:relative;min-height:min(92vh,880px);display:flex;align-items:center;overflow:hidden}
+.hero__media{position:absolute;inset:0}
+.hero__media img{width:100%;height:100%;object-fit:cover;object-position:56% 50%;transform:scale(1.07);transition:transform 1.6s cubic-bezier(.2,.7,.2,1)}
+.hero.ready .hero__media img{transform:scale(1)}
+.hero__media::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(101deg,rgba(242,240,232,.9) 0%,rgba(242,240,232,.64) 27%,rgba(242,240,232,0) 55%),
+             linear-gradient(to bottom,rgba(242,240,232,0) 74%,var(--paper) 100%)}
+.hero__body{position:relative;width:100%;max-width:var(--maxw);margin:0 auto;padding:118px var(--pad) 54px}
+.hero__body>*{opacity:0;transform:translateY(20px);transition:opacity .85s cubic-bezier(.22,.7,.25,1) var(--d,0s),transform .85s cubic-bezier(.22,.7,.25,1) var(--d,0s)}
+.hero.ready .hero__body>*{opacity:1;transform:none}
+.kicker{font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--moss-dark)}
+.hero h1{font-size:clamp(2.6rem,4.9vw,4.5rem);line-height:1.0;margin:22px 0 0;font-weight:800;letter-spacing:-.035em}
+.hero h1 .ln{display:block}
+.hero__sub{max-width:42ch;margin-top:26px;color:#33463A;font-size:clamp(1.02rem,1.3vw,1.17rem);line-height:1.58}
+.hero__cta{display:flex;flex-wrap:wrap;align-items:center;gap:14px 26px;margin-top:36px}
+
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(20,33,26,.14);margin-top:clamp(48px,7vw,84px)}
+.facts div{background:var(--paper);padding:28px 30px 30px}
+.facts svg{width:22px;height:22px;color:var(--moss);margin-bottom:16px}
+.facts b{display:block;font-weight:500;font-size:1.04rem;margin-bottom:7px}
+.facts p{color:var(--ink-2);font-size:.95rem;line-height:1.52}
+
+/* compare */
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,2vw,28px);margin-top:clamp(36px,5vw,56px)}
+.cmp>div{padding:clamp(28px,3.2vw,44px);border-radius:var(--r)}
+.cmp__old{background:var(--paper-2)}
+.cmp__new{background:var(--forest);color:#DCE7DE}
+.cmp h3{font-size:1.3rem;line-height:1.24;margin-bottom:24px}
+.cmp__new h3{color:#fff}
+.cmp ul{list-style:none;margin:0;padding:0;display:grid;gap:17px;font-size:1rem;line-height:1.5}
+.cmp li{display:grid;grid-template-columns:19px 1fr;gap:13px;align-items:start}
+.cmp__old li{color:var(--ink-2)}
+.cmp svg{width:18px;height:18px;margin-top:3px;color:#97A79C}
+.cmp__new svg{color:#7FC08F}
+.after-note{margin-top:28px;font-size:.95rem;color:var(--ink-2);max-width:62ch}
+
+/* steps */
+.dark{background:var(--forest);color:#DFE9E1}
+.dark h2,.dark h3{color:#fff}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(20px,2.4vw,36px);margin-top:clamp(40px,5vw,64px)}
+.step i{display:block;font-style:normal;font-variant-numeric:tabular-nums;font-size:.8125rem;font-weight:600;color:#7FC08F;padding-bottom:16px;box-shadow:inset 0 -1px 0 rgba(255,255,255,.18);margin-bottom:18px}
+.step h3{font-size:1.2rem;line-height:1.24;margin-bottom:10px}
+.step p{color:#A9BFB0;font-size:.97rem;line-height:1.55}
+.band{margin-top:clamp(48px,6vw,80px)}
+.band .ph{height:clamp(230px,32vw,400px)}
+.band .ph img{width:100%;height:116%;margin-top:-8%;object-fit:cover}
+.band figcaption{margin-top:14px;font-size:.87rem;color:#8FA896;max-width:58ch}
+figure{margin:0}
+
+/* catalogue */
+.cat{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2vw,26px);margin-top:clamp(36px,4.5vw,56px)}
+.card{display:flex;flex-direction:column;background:var(--paper-2);border-radius:var(--r);overflow:hidden;transition:transform .3s}
+.card:hover{transform:translateY(-4px)}
+.card img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.card__txt{padding:26px 28px 30px;display:flex;flex-direction:column;gap:10px;flex:1}
+.card h3{font-size:1.28rem;letter-spacing:-.025em}
+.card p{color:var(--ink-2);font-size:.95rem;line-height:1.5}
+.card__foot{margin-top:auto;padding-top:20px;display:flex;align-items:center;justify-content:space-between;font-size:.9rem;color:var(--moss);font-weight:500}
+.card__foot svg{width:14px;height:14px}
+.card--wide{grid-column:span 2}
+.card--wide img{aspect-ratio:21/9}
+.card--plain{background:#EDEBE2}
+.card--plain h3{font-size:1.45rem}
+.strip{grid-column:1/-1;background:var(--forest);color:#DFE9E1;border-radius:var(--r);padding:clamp(28px,3.4vw,44px);
+  display:grid;grid-template-columns:1fr auto;align-items:center;gap:22px 48px}
+.strip h3{font-size:clamp(1.3rem,2.2vw,1.7rem);line-height:1.2;text-wrap:balance}
+.strip p{color:#A9BFB0;font-size:.98rem;margin-top:8px;max-width:48ch}
+
+/* price */
+.price{margin-top:clamp(32px,4vw,52px)}
+.price__row{display:grid;grid-template-columns:1.5fr 1.6fr auto;gap:10px 28px;align-items:baseline;padding:22px 4px;box-shadow:inset 0 -1px 0 rgba(20,33,26,.13)}
+.price__row:first-child{box-shadow:inset 0 -1px 0 rgba(20,33,26,.13),inset 0 1px 0 rgba(20,33,26,.13)}
+.price__row b{font-weight:500;font-size:1.12rem}
+.price__row p{color:var(--ink-2);font-size:.95rem}
+.price__row .val{font-family:Manrope,"Segoe UI",system-ui,sans-serif;font-weight:700;font-size:1.22rem;font-variant-numeric:tabular-nums;white-space:nowrap;letter-spacing:-.02em}
+.price__row .val small{font:400 .82rem/1 "Golos Text",sans-serif;color:var(--ink-2);margin-right:7px}
+.sizes{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(20,33,26,.14);margin-top:clamp(36px,4vw,52px)}
+.sizes div{background:var(--paper);padding:26px 28px;display:flex;flex-direction:column}
+.sizes b{display:block;font-weight:500;margin-bottom:6px}
+.sizes p{color:var(--ink-2);font-size:.93rem}
+.sizes .val{display:block;margin-top:auto;padding-top:16px;font-family:Manrope,"Segoe UI",system-ui,sans-serif;font-weight:700;font-size:1.2rem;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.sizes__cap{margin-top:18px;font-size:.93rem;color:var(--ink-2);max-width:60ch}
+
+/* about */
+.about{background:var(--paper-2)}
+.about__in{display:grid;grid-template-columns:1.15fr 1fr;gap:clamp(28px,5vw,80px);align-items:start}
+.about .lede+.lede{margin-top:16px}
+.figs{display:grid;gap:0}
+.fig{padding:22px 0;box-shadow:inset 0 -1px 0 rgba(20,33,26,.13);display:grid;grid-template-columns:auto 1fr;gap:6px 24px;align-items:baseline}
+.fig:first-child{box-shadow:inset 0 -1px 0 rgba(20,33,26,.13),inset 0 1px 0 rgba(20,33,26,.13)}
+.fig b{font-family:Manrope,"Segoe UI",system-ui,sans-serif;font-weight:800;font-size:clamp(1.7rem,2.6vw,2.3rem);letter-spacing:-.035em;line-height:1;color:var(--moss)}
+.fig p{color:var(--ink-2);font-size:.97rem;line-height:1.45}
+
+/* delivery */
+.deliv{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(28px,4vw,64px);align-items:start;margin-top:clamp(32px,4vw,52px)}
+.dl{display:grid;gap:28px}
+.dl>div{display:grid;grid-template-columns:24px 1fr;gap:16px}
+.dl svg{width:22px;height:22px;color:var(--moss);margin-top:3px}
+.dl b{display:block;font-weight:500;margin-bottom:6px}
+.dl p{color:var(--ink-2);font-size:.96rem;line-height:1.55}
+.deliv .ph{aspect-ratio:4/3;border-radius:var(--r)}
+.deliv .ph img{width:100%;height:116%;margin-top:-8%;object-fit:cover}
+.deliv figcaption{margin-top:14px;font-size:.88rem;color:var(--ink-2);line-height:1.5}
+
+/* faq */
+.faq{margin-top:clamp(28px,3.5vw,44px);max-width:920px}
+.faq details{box-shadow:inset 0 -1px 0 rgba(20,33,26,.13)}
+.faq summary{list-style:none;cursor:pointer;padding:26px 48px 26px 0;position:relative;font-size:clamp(1.05rem,1.5vw,1.2rem);font-family:Manrope,"Segoe UI",system-ui,sans-serif;font-weight:600;line-height:1.35;letter-spacing:-.01em}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary svg{position:absolute;right:6px;top:50%;width:15px;height:15px;margin-top:-7px;color:var(--moss);transition:transform .3s}
+.faq details[open] summary svg{transform:rotate(180deg)}
+.faq details p{padding:0 10% 28px 0;color:var(--ink-2);line-height:1.62}
+
+/* order */
+.order__in{display:grid;grid-template-columns:1fr 1.05fr;gap:clamp(32px,5vw,72px);align-items:start}
+.contacts{margin-top:38px;display:grid;gap:15px;font-size:1.02rem}
+.contacts a,.contacts span{display:inline-flex;align-items:center;gap:13px;color:#E7EFE8}
+.contacts a:hover{color:#7FC08F}
+.contacts svg{width:18px;height:18px;color:#7FC08F;flex:none}
+form{display:grid;gap:15px}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+label{display:block;font-size:.78rem;letter-spacing:.07em;text-transform:uppercase;color:#93A399;margin-bottom:9px}
+input,select,textarea{width:100%;background:var(--forest-2);border:0;border-radius:var(--r);padding:14px 16px;color:#fff;font-size:1rem}
+input::placeholder,textarea::placeholder{color:#7E9186}
+select{appearance:none;background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%237FC08F' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center}
+textarea{min-height:104px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:2px solid #7FC08F;outline-offset:1px}
+form .btn{justify-content:center;margin-top:6px}
+.consent{font-size:.83rem;color:#8FA896;line-height:1.5}
+.consent a{text-decoration:underline;text-underline-offset:3px}
+.sent{display:none;background:var(--forest-2);border-radius:var(--r);padding:30px;line-height:1.55}
+.sent.on{display:block}
+.sent b{display:block;font-family:Manrope,"Segoe UI",system-ui,sans-serif;font-weight:700;font-size:1.22rem;margin-bottom:10px;color:#fff}
+
+/* footer */
+.ftr{background:var(--forest);color:#8FA896;padding-bottom:48px;font-size:.9rem}
+.ftr__in{display:flex;flex-wrap:wrap;gap:18px 40px;align-items:center;padding-top:36px;box-shadow:inset 0 1px 0 rgba(255,255,255,.13)}
+.ftr a:hover{color:#fff}
+.ftr .soc{margin-left:auto;color:#DFE9E1}
+.ftr .soc a{display:grid;place-items:center;width:38px;height:38px;border-radius:var(--r);background:var(--forest-2);color:#B9CDBF}
+.ftr .soc a:hover{background:var(--moss);color:#fff}
+.ftr .soc svg{width:17px;height:17px}
+
+.rv{opacity:0;transform:translateY(22px);transition:opacity .85s cubic-bezier(.22,.7,.25,1),transform .85s cubic-bezier(.22,.7,.25,1)}
+.rv.in{opacity:1;transform:none}
+.stag>*{opacity:0;transform:translateY(26px);transition:opacity .75s cubic-bezier(.22,.7,.25,1) var(--d,0s),transform .75s cubic-bezier(.22,.7,.25,1) var(--d,0s)}
+.stag.in>*{opacity:1;transform:none}
+.wipe{overflow:hidden}
+.wipe img{clip-path:inset(0 0 100% 0);transition:clip-path 1.15s cubic-bezier(.22,.7,.25,1)}
+.wipe.in img{clip-path:inset(0 0 0 0)}
+.pxbox{overflow:hidden}
+.pxbox img{will-change:transform}
+.card img{transition:transform .7s cubic-bezier(.2,.7,.2,1)}
+.card:hover img{transform:scale(1.045)}
+.price__row{transition:background .3s}
+.price__row:hover{background:var(--paper-2)}
+
+@media (max-width:1200px){
+  .nav{gap:18px}
+  .nav-x{display:none}
+}
+@media (max-width:1040px){
+  .steps{grid-template-columns:repeat(2,1fr)}
+  .cat{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:860px){
+  .nav,.hdr .btn{display:none}
+  .burger{display:block}
+  .hero{display:block;min-height:0}
+  .hero__media{position:static;height:52vh;min-height:300px}
+  .hero__media::after{background:linear-gradient(to bottom,rgba(242,240,232,0) 76%,var(--paper) 100%)}
+  .hero__body{padding:30px var(--pad) 6px}
+  .facts{grid-template-columns:1fr}
+  .cmp,.deliv,.order__in,.sizes,.about__in{grid-template-columns:1fr}
+  .strip{grid-template-columns:1fr}
+  .price__row{grid-template-columns:1fr auto;gap:6px 20px}
+  .price__row p{grid-column:1/-1;order:3}
+}
+@media (max-width:560px){
+  .cat{grid-template-columns:1fr}
+  .card--wide{grid-column:auto}
+  .steps{grid-template-columns:1fr}
+  .f2{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  html:focus-within{scroll-behavior:auto}
+  .rv,.stag>*,.hero__body>*{opacity:1!important;transform:none!important;transition:none!important}
+  .wipe img{clip-path:none!important}
+  .hero__media img{transform:none!important}
+  *{animation-duration:.01ms!important;transition-duration:.01ms!important}
+}
+</style>
+</head>
+<body>
+
+<svg style="display:none" aria-hidden="true">
+  <symbol id="i-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M7.8 2.8h8.4M9.3 2.8v3.5c0 .5-.15.98-.43 1.4L6.1 11.6c-.28.42-.43.9-.43 1.4V19a2.2 2.2 0 0 0 2.2 2.2h8.26A2.2 2.2 0 0 0 18.33 19v-6c0-.5-.15-.98-.43-1.4L15.13 7.7a2.5 2.5 0 0 1-.43-1.4V2.8"/>
+    <path d="M12 19.2v-4.6"/>
+    <path d="M12 14.9c0-1.8 1.3-3.2 3-3.2 0 1.8-1.3 3.2-3 3.2Z"/>
+    <path d="M12 16.6c-1.5 0-2.7-1.2-2.7-2.8 1.5 0 2.7 1.3 2.7 2.8Z"/>
+  </symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4.5 16.5 12 9 19.5"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 9 12 16.5 19.5 9"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.6 9 17.6 20 6.6"/></symbol>
+  <symbol id="i-dash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="8.6"/><path d="M8.4 12h7.2"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.8 19 5.8v5.6c0 4.4-2.9 8.2-7 9.8-4.1-1.6-7-5.4-7-9.8V5.8l7-3Z"/><path d="m8.8 11.9 2.3 2.3 4.4-4.5"/></symbol>
+  <symbol id="i-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3.6 11.5V4.6a1 1 0 0 1 1-1h6.9c.27 0 .52.1.7.3l8.1 8.1a1 1 0 0 1 0 1.4l-6.9 6.9a1 1 0 0 1-1.4 0L3.9 12.2a1 1 0 0 1-.3-.7Z"/><circle cx="8" cy="8" r="1.4"/></symbol>
+  <symbol id="i-sprout" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21v-8.4"/><path d="M12 12.6c0-3.3 2.7-6 6-6 0 3.3-2.7 6-6 6Z"/><path d="M12 16.2c-2.8 0-5-2.3-5-5 2.8 0 5 2.2 5 5Z"/></symbol>
+  <symbol id="i-truck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.8 5.6h10.9v10.2H2.8z"/><path d="M13.7 9.2h3.6l3.1 3.3v3.3h-6.7"/><circle cx="7" cy="17.8" r="1.9"/><circle cx="17.2" cy="17.8" r="1.9"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.6"/><path d="M12 7.2V12l3.1 2"/></symbol>
+  <symbol id="i-card" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2.8" y="5.4" width="18.4" height="13.2" rx="2"/><path d="M2.8 10h18.4"/><path d="M6.4 14.6h3.4"/></symbol>
+  <symbol id="i-snow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M4.2 7.5l15.6 9M19.8 7.5l-15.6 9"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.4 3.4h3.2l1.5 4-2 1.5a12.2 12.2 0 0 0 5.9 5.9l1.5-2 4 1.5v3.2a2 2 0 0 1-2.2 2A16.6 16.6 0 0 1 4.4 5.6a2 2 0 0 1 2-2.2Z"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2.8" y="5" width="18.4" height="14" rx="2"/><path d="m3.4 6.8 8.6 6.2 8.6-6.2"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21.2s7-6.3 7-11.2a7 7 0 1 0-14 0c0 4.9 7 11.2 7 11.2Z"/><circle cx="12" cy="9.8" r="2.6"/></symbol>
+  <symbol id="i-tg" viewBox="0 0 24 24"><path fill="currentColor" d="M23.9 3.8 20.3 20.9c-.25 1.2-.98 1.5-2 .94l-5.5-4.07-2.65 2.56c-.3.3-.54.55-1.1.55l.4-5.6L19.1 5.9c.44-.4-.1-.62-.68-.23L6.8 13.1l-5.45-1.7c-1.18-.37-1.2-1.18.25-1.75L22.37 2.1c.98-.36 1.84.22 1.53 1.7Z"/></symbol>
+  <symbol id="i-vk" viewBox="0 0 24 24"><g transform="translate(12 12) scale(1.32) translate(-12 -12)"><path fill="currentColor" d="M13 17.2c-5.3 0-8.6-3.7-8.7-9.8h2.7c.1 4.5 2.1 6.4 3.6 6.8V7.4h2.5v3.9c1.5-.2 3.1-1.9 3.6-3.9h2.5c-.4 2.4-2.1 4.1-3.3 4.8 1.2.6 3.1 2.1 3.8 4.9h-2.8c-.6-1.9-2-3.4-3.8-3.6v3.7H13Z"/></g></symbol>
+</svg>
+
+<header class="hdr" id="hdr">
+  <div class="hdr__in">
+    <a class="brand" href="#top" aria-label="PhytoClone, на главную">
+      <svg><use href="#i-mark"></use></svg> PhytoClone
+    </a>
+    <nav class="nav">
+      <a href="#how">Как это работает</a>
+      <a href="#catalog">Каталог</a>
+      <a href="#price" class="nav-x">Цены</a>
+      <a href="#about" class="nav-x">О лаборатории</a>
+      <a href="#delivery">Доставка</a>
+      <a href="#faq">Вопросы</a>
+    </nav>
+    <a class="btn btn--sm" href="#order">Подобрать растение</a>
+    <button class="burger" id="burger" aria-label="Меню" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<div class="menu" id="menu">
+  <a href="#how">Как это работает</a>
+  <a href="#catalog">Каталог</a>
+  <a href="#price">Цены</a>
+  <a href="#about">О лаборатории</a>
+  <a href="#delivery">Доставка</a>
+  <a href="#faq">Вопросы</a>
+  <a href="#order" class="btn">Подобрать растение</a>
+</div>
+
+<main id="top">
+
+<section class="hero">
+  <div class="hero__media">
+    <picture>
+      <source media="(max-width:860px)" srcset="img/hero-m.jpg">
+      <img src="img/hero.jpg" alt="Молодое растение в стерильном сосуде на лабораторном столе" width="1672" height="940" fetchpriority="high">
+    </picture>
+  </div>
+  <div class="hero__body">
+    <p class="kicker">Лаборатория микроклонального размножения</p>
+    <h1><span class="ln">Редкие растения</span><span class="ln">из пробирки</span></h1>
+    <p class="hero__sub">Выращиваем комнатные и коллекционные виды в стерильной культуре: без вирусов, вредителей и пересорта. Каждое растение адаптируем перед отправкой.</p>
+    <div class="hero__cta">
+      <a class="btn" href="#order">Подобрать растение <svg><use href="#i-chev"></use></svg></a>
+      <a class="btn btn--ghost" href="#how">Как это работает <svg><use href="#i-chev"></use></svg></a>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="facts rv stag">
+    <div>
+      <svg><use href="#i-shield"></use></svg>
+      <b>Чистая культура</b>
+      <p>Растение выходит из закрытого сосуда. Ни грибка, ни трипса, ни щитовки внутрь не попадает.</p>
+    </div>
+    <div>
+      <svg><use href="#i-tag"></use></svg>
+      <b>Сорт без сюрпризов</b>
+      <p>Это генетическая копия материнского растения. Зацветёт тем, что написано на бирке.</p>
+    </div>
+    <div>
+      <svg><use href="#i-sprout"></use></svg>
+      <b>Адаптация до отправки</b>
+      <p>2–3 недели приучаем к комнатной влажности, чтобы переезд прошёл спокойно.</p>
+    </div>
+  </div>
+</div>
+
+<section class="sec wrap" id="why">
+  <p class="lab"><i>01</i><span>Зачем это нужно</span></p>
+  <h2 class="h2">Половина проблем с редким растением начинается до того, как вы его купили</h2>
+  <p class="lede">Вирус, вредитель и пересорт приезжают вместе с растением — и становятся заметны через месяцы. Лабораторный цикл закрывает все три пункта сразу.</p>
+
+  <div class="cmp rv stag">
+    <div class="cmp__old">
+      <h3>Черенок с рынка или из чужой коллекции</h3>
+      <ul>
+        <li><svg><use href="#i-dash"></use></svg><span>Вирусы передаются от материнского растения. У орхидей носительство почти не видно, пока растение не попадёт в стресс.</span></li>
+        <li><svg><use href="#i-dash"></use></svg><span>Трипс, щитовка и мучнистый червец переезжают вместе с горшком — и расходятся по всей полке.</span></li>
+        <li><svg><use href="#i-dash"></use></svg><span>Пересорт: бирка одна, цветение через год другое. Доказать уже некому.</span></li>
+        <li><svg><use href="#i-dash"></use></svg><span>Взрослый экземпляр тяжелее переносит смену света, воды и влажности.</span></li>
+      </ul>
+    </div>
+    <div class="cmp__new">
+      <h3>Растение из микроклонального размножения</h3>
+      <ul>
+        <li><svg><use href="#i-check"></use></svg><span>Исходная культура стерильна: внутри сосуда нет ни грибка, ни бактерий, ни насекомых.</span></li>
+        <li><svg><use href="#i-check"></use></svg><span>Сорт совпадает с материнским до мелочей — это клон, а не сеянец.</span></li>
+        <li><svg><use href="#i-check"></use></svg><span>Молодое растение растёт в ваших условиях с самого начала и привыкает к ним.</span></li>
+        <li><svg><use href="#i-check"></use></svg><span>Партия однородная: понравившийся сорт можно повторить или подарить такой же.</span></li>
+      </ul>
+    </div>
+  </div>
+  <p class="after-note">Микроклонирование — это не ГМО и не «искусственное растение». Тот же вегетативный черенок, только размером в пару миллиметров и в стерильных условиях.</p>
+</section>
+
+<section class="sec dark" id="how">
+  <div class="wrap">
+    <p class="lab"><i>02</i><span>Как это работает</span></p>
+    <h2 class="h2">Четыре этапа от точки роста до горшка</h2>
+
+    <div class="steps rv stag">
+      <div class="step">
+        <i>01</i>
+        <h3>Меристема</h3>
+        <p>Берём точку роста у здорового сортового растения — участок ткани в пару миллиметров.</p>
+      </div>
+      <div class="step">
+        <i>02</i>
+        <h3>Стерильная среда</h3>
+        <p>Ткань переносим в питательный агар в закрытом сосуде. Дальше растение развивается без контакта с внешней микрофлорой.</p>
+      </div>
+      <div class="step">
+        <i>03</i>
+        <h3>Размножение</h3>
+        <p>За несколько пересадок из одной точки роста получается партия одинаковых растений с теми же признаками сорта.</p>
+      </div>
+      <div class="step">
+        <i>04</i>
+        <h3>Адаптация</h3>
+        <p>Достаём из среды, отмываем агар и 2–3 недели приучаем к комнатной влажности. Только после этого растение уезжает.</p>
+      </div>
+    </div>
+
+    <figure class="band">
+      <div class="ph wipe pxbox"><img src="img/petri.jpg" alt="Проростки в чашке Петри на питательной среде" width="1774" height="776" loading="lazy"></div>
+      <figcaption>Чашка Петри с проростками на питательной среде. На этом этапе из одного фрагмента ткани получается несколько десятков растений.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="sec wrap" id="catalog">
+  <p class="lab"><i>03</i><span>Каталог</span></p>
+  <h2 class="h2">Что выращиваем</h2>
+  <p class="lede">Шесть направлений, 105 сортов в работе. Наличие меняется каждую неделю — актуальный список пришлём в ответ на заявку.</p>
+
+  <div class="cat rv stag">
+    <a class="card card--wide" href="#order" data-cat="Орхидеи">
+      <img src="img/orchid-wide.jpg" alt="Цветущая орхидея фаленопсис в лаборатории" width="1400" height="787" loading="lazy">
+      <div class="card__txt">
+        <h3>Орхидеи</h3>
+        <p>Фаленопсисы, каттлеи, дендробиумы и видовые редкости, которые почти не встречаются в магазинах.</p>
+        <span class="card__foot">32 сорта <svg><use href="#i-chev"></use></svg></span>
+      </div>
+    </a>
+    <a class="card" href="#order" data-cat="Ароидные">
+      <img src="img/monstera-card.jpg" alt="Лист монстеры с каплями воды" width="900" height="675" loading="lazy">
+      <div class="card__txt">
+        <h3>Ароидные</h3>
+        <p>Монстеры, филодендроны, антуриумы, сциндапсусы — включая вариегатные формы.</p>
+        <span class="card__foot">18 сортов <svg><use href="#i-chev"></use></svg></span>
+      </div>
+    </a>
+    <a class="card card--plain" href="#order" data-cat="Хищные растения">
+      <div class="card__txt">
+        <h3>Хищные растения</h3>
+        <p>Венерина мухоловка, непентес, саррацения, росянка. Из пробирки они выходят особенно ровными.</p>
+        <span class="card__foot">12 сортов <svg><use href="#i-chev"></use></svg></span>
+      </div>
+    </a>
+    <a class="card card--plain" href="#order" data-cat="Папоротники и эпифиты">
+      <div class="card__txt">
+        <h3>Папоротники и эпифиты</h3>
+        <p>Платицериум, асплениум, даваллия. Растения, которые сложно размножить делением.</p>
+        <span class="card__foot">15 сортов <svg><use href="#i-chev"></use></svg></span>
+      </div>
+    </a>
+    <a class="card card--plain" href="#order" data-cat="Суккуленты">
+      <div class="card__txt">
+        <h3>Суккуленты</h3>
+        <p>Хавортии, гастерии, эхеверии редких форм — чистые, без остатков старого субстрата.</p>
+        <span class="card__foot">20 сортов <svg><use href="#i-chev"></use></svg></span>
+      </div>
+    </a>
+    <div class="strip">
+      <div>
+        <h3>Редкие и коллекционные</h3>
+        <p>Хойи, аглаонемы, антуриумы с именами — восемь сортов держим малыми партиями. Нет вашего вида? Заведём культуру под заказ: от точки роста до готового растения около четырёх месяцев.</p>
+      </div>
+      <a class="btn btn--light" href="#order" data-cat="Сорт под заказ">Обсудить сорт <svg><use href="#i-chev"></use></svg></a>
+    </div>
+  </div>
+</section>
+
+<section class="sec wrap" id="price">
+  <p class="lab"><i>04</i><span>Цены</span></p>
+  <h2 class="h2">Сколько стоит растение</h2>
+  <p class="lede">Цена зависит от вида и размера. Ниже — стартовые позиции, которые почти всегда есть в наличии.</p>
+
+  <div class="price rv stag">
+    <div class="price__row"><b>Орхидея Phalaenopsis</b><p>Классика: цветёт 2–3 месяца подряд, переносит квартирный сухой воздух</p><span class="val"><small>от</small>3&nbsp;500&nbsp;₽</span></div>
+    <div class="price__row"><b>Монстера deliciosa</b><p>Крупный лист с прорезями, быстро набирает объём</p><span class="val"><small>от</small>2&nbsp;000&nbsp;₽</span></div>
+    <div class="price__row"><b>Антуриум</b><p>Яркий прицветник, цветение почти круглый год при хорошем свете</p><span class="val"><small>от</small>1&nbsp;800&nbsp;₽</span></div>
+    <div class="price__row"><b>Хойя</b><p>Ароматные зонтики, неприхотлива, живёт на одном месте годами</p><span class="val"><small>от</small>1&nbsp;500&nbsp;₽</span></div>
+    <div class="price__row"><b>Платицериум (олений рог)</b><p>Эпифит, который вешают на блок; редко встречается в продаже</p><span class="val"><small>от</small>4&nbsp;500&nbsp;₽</span></div>
+  </div>
+
+  <div class="sizes rv stag">
+    <div><b>Мини</b><p>Растение 1–2 см, для тех, кто хочет вырастить всё сам</p><span class="val">3&nbsp;500&nbsp;₽</span></div>
+    <div><b>Стандарт</b><p>Растение 3–5 см, уже с окрепшей корневой</p><span class="val">4&nbsp;500&nbsp;₽</span></div>
+    <div><b>Премиум</b><p>Растение от 6 см, ближе всего к цветению</p><span class="val">6&nbsp;500&nbsp;₽</span></div>
+  </div>
+  <p class="sizes__cap">Размеры указаны для орхидеи Phalaenopsis. По остальным видам шкала своя — назовём при подборе.</p>
+</section>
+
+<section class="sec about" id="about">
+  <div class="wrap">
+    <p class="lab"><i>05</i><span>О лаборатории</span></p>
+    <div class="about__in rv">
+      <div>
+        <h2 class="h2">Лаборатория, а не подоконник</h2>
+        <p class="lede">Чистая зона, ламинарный бокс и питательные среды, которые готовим сами под каждую группу растений: орхидее нужна одна формула, росянке — другая.</p>
+        <p class="lede">Пять лет работаем с меристемными культурами. За это время из лаборатории уехало больше пяти тысяч растений — в частные коллекции, небольшие питомники и к флористам.</p>
+      </div>
+      <div class="figs rv stag">
+        <div class="fig"><b>5 лет</b><p>работаем с меристемными культурами</p></div>
+        <div class="fig"><b>5 000+</b><p>растений уехало из лаборатории</p></div>
+        <div class="fig"><b>99%</b><p>приживаемость после адаптации</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec wrap" id="delivery">
+  <p class="lab"><i>06</i><span>Доставка</span></p>
+  <h2 class="h2">Как растение доедет до вас</h2>
+
+  <div class="deliv rv">
+    <div class="dl">
+      <div>
+        <svg><use href="#i-truck"></use></svg>
+        <div><b>По всей России</b><p>СДЭК и Почта России до пункта выдачи или до двери. По Москве — свой курьер.</p></div>
+      </div>
+      <div>
+        <svg><use href="#i-clock"></use></svg>
+        <div><b>От 2 до 7 дней</b><p>Отправляем по будням. Трек-номер приходит в тот же день, когда посылка уходит.</p></div>
+      </div>
+      <div>
+        <svg><use href="#i-card"></use></svg>
+        <div><b>Оплата картой или через СБП</b><p>Карты Visa, Mastercard, МИР. Наложенный платёж — по согласованию. Доставка бесплатна при заказе от 5&nbsp;000&nbsp;₽.</p></div>
+      </div>
+      <div>
+        <svg><use href="#i-snow"></use></svg>
+        <div><b>Зимой — с термопакетом</b><p>Кладём грелку и утепляем коробку. Если по трассе ниже −20&nbsp;°C, ждём окна потепления и предупреждаем заранее.</p></div>
+      </div>
+    </div>
+
+    <figure>
+      <div class="ph wipe pxbox"><img src="img/jar-card.jpg" alt="Растение в закрытом стерильном сосуде" width="1254" height="941" loading="lazy"></div>
+      <figcaption>Часть коллекции уезжает прямо в сосуде, в котором росла: так растение переносит дорогу лучше всего. Адаптированные экземпляры едут в горшке с закрытой корневой.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="sec wrap" id="faq">
+  <p class="lab"><i>07</i><span>Вопросы</span></p>
+  <h2 class="h2">О чём спрашивают чаще всего</h2>
+
+  <div class="faq rv stag">
+    <details>
+      <summary>Какого размера приедет растение?<svg><use href="#i-down"></use></svg></summary>
+      <p>От 1–2 см в размере «мини» до 6 см и больше в «премиуме». Это не взрослый куст из гипермаркета, а молодое растение, которое наберёт форму уже у вас. Зато первые месяцы жизни оно провело в чистых условиях.</p>
+    </details>
+    <details>
+      <summary>Что делать в первые дни после получения?<svg><use href="#i-down"></use></svg></summary>
+      <p>Распаковать сразу, поставить в тепло (18–28&nbsp;°C) и на яркий рассеянный свет без прямого солнца. Первые две недели держите влажность повыше — подойдёт прозрачный пакет или мини-теплица. Не заливайте: после лаборатории корень чувствителен к переувлажнению. Подробную памятку кладём в коробку.</p>
+    </details>
+    <details>
+      <summary>А если растение не переживёт дорогу?<svg><use href="#i-down"></use></svg></summary>
+      <p>Снимите вскрытие посылки на видео или сфотографируйте содержимое до того, как достанете растение. При повреждении в пути меняем на такое же или возвращаем деньги. Если растение не прижилось в первые 14 дней — разбираемся вместе по фото.</p>
+    </details>
+    <details>
+      <summary>Можно ли заказать сорт, которого нет в списке?<svg><use href="#i-down"></use></svg></summary>
+      <p>Да. Нужен исходный экземпляр — ваш или наш. Цикл от точки роста до растения, готового к отправке, занимает от четырёх месяцев, по капризным видам дольше. Напишите название — назовём срок и цену до старта работы.</p>
+    </details>
+    <details>
+      <summary>Растение из пробирки — это ГМО?<svg><use href="#i-down"></use></svg></summary>
+      <p>Нет. Геном никто не редактирует. Микроклонирование — обычное вегетативное размножение, как черенкование, только исходный кусочек ткани очень мал и всё происходит в стерильных условиях. Растение получается точной копией материнского.</p>
+    </details>
+    <details>
+      <summary>Работаете с питомниками и магазинами?<svg><use href="#i-down"></use></svg></summary>
+      <p>Да, партиями от 50 растений одного сорта. Под опт считаем отдельную цену и согласуем график: партия собирается под дату, а не берётся из наличия.</p>
+    </details>
+  </div>
+</section>
+
+<section class="sec dark" id="order">
+  <div class="wrap order__in">
+    <div>
+      <p class="lab"><i>08</i><span>Заявка</span></p>
+      <h2 class="h2">Расскажите, что ищете</h2>
+      <p class="lede">Ответим в течение рабочего дня: пришлём актуальный список по вашему направлению, фото конкретных растений и стоимость с доставкой.</p>
+
+      <div class="contacts">
+        <a href="tel:+79961234567"><svg><use href="#i-phone"></use></svg>+7 (996) 123-45-67</a>
+        <a href="mailto:info@phytoclone.ru"><svg><use href="#i-mail"></use></svg>info@phytoclone.ru</a>
+        <span><svg><use href="#i-pin"></use></svg>Москва, улица Растений, 1</span>
+      </div>
+    </div>
+
+    <div>
+      <form id="lead" novalidate>
+        <div class="f2">
+          <div>
+            <label for="f-name">Как к вам обращаться</label>
+            <input id="f-name" name="name" type="text" placeholder="Имя" required>
+          </div>
+          <div>
+            <label for="f-contact">Телефон или телеграм</label>
+            <input id="f-contact" name="contact" type="text" placeholder="+7 900 000-00-00" required>
+          </div>
+        </div>
+        <div>
+          <label for="f-cat">Что интересует</label>
+          <select id="f-cat" name="category">
+            <option value="">Ещё выбираю</option>
+            <option>Орхидеи</option>
+            <option>Ароидные</option>
+            <option>Хищные растения</option>
+            <option>Папоротники и эпифиты</option>
+            <option>Суккуленты</option>
+            <option>Редкие и коллекционные</option>
+            <option>Сорт под заказ</option>
+            <option>Оптовая партия</option>
+          </select>
+        </div>
+        <div>
+          <label for="f-note">Комментарий</label>
+          <textarea id="f-note" name="note" placeholder="Названия сортов, желаемый размер, город доставки"></textarea>
+        </div>
+        <button class="btn" type="submit">Отправить заявку <svg><use href="#i-chev"></use></svg></button>
+        <p class="consent">Нажимая кнопку, вы соглашаетесь на обработку персональных данных.</p>
+      </form>
+      <div class="sent" id="sent">
+        <b>Заявка у нас</b>
+        Свяжемся в течение рабочего дня и пришлём список растений, которые есть прямо сейчас.
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="ftr">
+  <div class="wrap ftr__in">
+    <a class="brand" href="#top" style="color:#fff"><svg style="color:#7FC08F"><use href="#i-mark"></use></svg> PhytoClone</a>
+    <span>Лаборатория микроклонального размножения растений</span>
+    <a href="mailto:info@phytoclone.ru">info@phytoclone.ru</a>
+    <div class="soc">
+      <a href="tel:+79961234567">+7 (996) 123-45-67</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var hdr=document.getElementById('hdr');
+  var onScroll=function(){ hdr.classList.toggle('is-stuck', window.scrollY>24); };
+  onScroll(); window.addEventListener('scroll',onScroll,{passive:true});
+
+  var burger=document.getElementById('burger'), menu=document.getElementById('menu');
+  var setMenu=function(open){
+    menu.classList.toggle('is-open',open);
+    burger.classList.toggle('is-on',open);
+    burger.setAttribute('aria-expanded',open?'true':'false');
+    document.body.classList.toggle('locked',open);
+  };
+  burger.addEventListener('click',function(){ setMenu(!menu.classList.contains('is-open')); });
+  menu.addEventListener('click',function(e){ if(e.target.closest('a')) setMenu(false); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') setMenu(false); });
+
+  var reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+  document.querySelectorAll('.stag').forEach(function(box){
+    [].forEach.call(box.children,function(ch,i){ ch.style.setProperty('--d',(i*80)+'ms'); });
+  });
+  [].forEach.call(document.querySelectorAll('.hero__body>*'),function(ch,i){
+    ch.style.setProperty('--d',(120+i*110)+'ms');
+  });
+  requestAnimationFrame(function(){ document.querySelector('.hero').classList.add('ready'); });
+
+  var els=document.querySelectorAll('.rv,.stag,.wipe');
+  if('IntersectionObserver' in window && !reduce){
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
+    },{rootMargin:'0px 0px -10% 0px'});
+    els.forEach(function(el){ io.observe(el); });
+  } else {
+    els.forEach(function(el){ el.classList.add('in'); });
+  }
+
+  var pxs=[].slice.call(document.querySelectorAll('.pxbox img'));
+  if(pxs.length && !reduce){
+    var ticking=false;
+    var place=function(){
+      var vh=window.innerHeight;
+      pxs.forEach(function(img){
+        var box=img.parentNode.getBoundingClientRect();
+        if(box.bottom<-100||box.top>vh+100) return;
+        var prog=(box.top+box.height/2-vh/2)/vh;
+        if(prog>1) prog=1; if(prog<-1) prog=-1;
+        img.style.transform='translate3d(0,'+(prog*4.2).toFixed(2)+'%,0)';
+      });
+      ticking=false;
+    };
+    var req=function(){ if(!ticking){ ticking=true; requestAnimationFrame(place); } };
+    window.addEventListener('scroll',req,{passive:true});
+    window.addEventListener('resize',req);
+    place();
+  }
+
+  document.querySelectorAll('[data-cat]').forEach(function(el){
+    el.addEventListener('click',function(){
+      var sel=document.getElementById('f-cat');
+      var want=el.getAttribute('data-cat');
+      [].forEach.call(sel.options,function(o){ if(o.textContent===want) sel.value=o.value; });
+    });
+  });
+
+  var form=document.getElementById('lead');
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var name=form.querySelector('[name=name]'), contact=form.querySelector('[name=contact]');
+    if(!name.value.trim()){ name.focus(); return; }
+    if(!contact.value.trim()){ contact.focus(); return; }
+    form.style.display='none';
+    document.getElementById('sent').classList.add('on');
+  });
+})();
+</script>
+</body>
+</html>
